@@ -8,17 +8,19 @@
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-// Runtime: 2 ms
-// Memory Usage: 44.60 MB
+// Runtime: 1 ms
+// Memory Usage: 44 MB
 class Solution {
     public void setZeroes(int[][] matrix) {
         List<Index> zerosIndex = new ArrayList<>();
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
+
+        int matrixRowLength = matrix.length;
+        int matrixColumnLength = matrix[0].length;
+
+        for (int i = 0; i < matrixRowLength; i++) {
+            for (int j = 0; j < matrixColumnLength; j++) {
                 int value = matrix[i][j];
                 if (0 == value) {
                     zerosIndex.add(new Index(i, j));
@@ -26,16 +28,13 @@ class Solution {
             }
         }
 
-        Set<Integer> columnIndexs = new HashSet<>();
         for (Index index : zerosIndex) {
             int rowIndex = index.getRow();
+
             Arrays.fill(matrix[rowIndex], 0);
 
-            columnIndexs.add(index.getColumn());
-        }
-
-        for (int i = 0; i < matrix.length; i++) {
-            for (Integer columnIndex : columnIndexs) {
+            int columnIndex = index.getColumn();
+            for (int i = 0; i < matrixRowLength; i++) {
                 matrix[i][columnIndex] = 0;
             }
         }
